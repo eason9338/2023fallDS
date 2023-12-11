@@ -33,7 +33,38 @@ public class KeywordList
 	// type (e.g., change it to return ArrayList<Keyword>)
 	private void quickSort(int leftbound, int rightbound)
 	{
+		int j = leftbound;
+		int k = rightbound - 1;
+		if(k <= j){
+			return;
+		}
+		int pivot = lst.get(rightbound).count;
 
+		int debug = 0;
+		while(j < k) {
+			if(lst.get(j).count > lst.get(k).count) {
+				swap(j, k);
+			}
+
+			if(lst.get(j).count <= pivot){
+				j++;
+			}
+			else if(lst.get(k).count > pivot) {
+				k--;
+			}
+			//1, 5, 2, 3, p=4
+			//1, 3, 2, 5, p=4
+
+			debug ++;
+			if(debug >= 10) {
+				System.out.println("Infinite loop");
+				return;
+			}
+		}
+		swap(j, rightbound);
+		//1, 3, 2, 5, 4, p=2
+		quickSort(leftbound, j-1);
+		quickSort(j, rightbound);
 	}
 
 	private void swap(int aIndex, int bIndex)
